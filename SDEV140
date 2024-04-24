@@ -2,6 +2,12 @@ import tkinter as tk
 
 class BudgeteerApp:
     def __init__(self, master):
+        """
+        Initializes the Budgeteer application.
+
+        Parameters:
+        - master (tk.Tk): The root window of the application.
+        """
         self.master = master
         self.master.title("Budgeteer")
         self.master.geometry("400x300")
@@ -9,6 +15,9 @@ class BudgeteerApp:
         self.main_window()
 
     def main_window(self):
+        """
+        Creates the main window of the Budgeteer application.
+        """
         self.frame = tk.Frame(self.master)
         self.frame.pack()
 
@@ -30,6 +39,9 @@ class BudgeteerApp:
         self.exit_button.pack()
 
     def create_budget_window(self):
+        """
+        Opens a new window for creating a new budget.
+        """
         new_window = tk.Toplevel(self.master)
         new_window.title("Create New Budget")
         new_window.geometry("300x200")
@@ -38,13 +50,19 @@ class BudgeteerApp:
         label = tk.Label(new_window, text="Enter budget details:")
         label.pack()
 
-        entry = tk.Entry(new_window)
-        entry.pack()
+        self.budget_name_entry = tk.Entry(new_window)
+        self.budget_name_entry.pack()
 
-        save_button = tk.Button(new_window, text="Save", command=lambda: self.save_budget(entry.get()))
+        self.initial_amount_entry = tk.Entry(new_window)
+        self.initial_amount_entry.pack()
+
+        save_button = tk.Button(new_window, text="Save", command=self.save_budget)
         save_button.pack()
 
     def view_budgets_window(self):
+        """
+        Opens a new window for viewing existing budgets.
+        """
         new_window = tk.Toplevel(self.master)
         new_window.title("View Existing Budgets")
         new_window.geometry("300x200")
@@ -53,18 +71,25 @@ class BudgeteerApp:
         label = tk.Label(new_window, text="List of existing budgets:")
         label.pack()
 
-        budget_list = tk.Listbox(new_window)
-        budget_list.pack()
+        self.budget_listbox = tk.Listbox(new_window)
+        self.budget_listbox.pack()
 
         # Populate the list with dummy data
         for i in range(1, 6):
-            budget_list.insert(tk.END, f"Budget {i}")
+            self.budget_listbox.insert(tk.END, f"Budget {i}")
 
-    def save_budget(self, budget_details):
-        # Placeholder function to save budget details
-        print("Saving budget:", budget_details)
+    def save_budget(self):
+        """
+        Saves the details of the new budget entered by the user.
+        """
+        budget_name = self.budget_name_entry.get()
+        initial_amount = self.initial_amount_entry.get()
+        # Additional code for saving the budget details would go here
 
 def main():
+    """
+    Main function to initialize and run the Budgeteer application.
+    """
     root = tk.Tk()
     app = BudgeteerApp(root)
     root.mainloop()
